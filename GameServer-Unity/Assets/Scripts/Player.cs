@@ -7,15 +7,27 @@ public class Player : MonoBehaviour
     public int id;
     public string username;
 
-    private float movespeed = 5f / Constants.TICKS_PER_SEC;
+    public CharacterController charcontrol;
+    public float gravity = -9.81f;
+    public float movespeed = 5f;
+    public float jumpspeed = 5f;
+    public float yvelocity = 0f;
+
     private bool[] inputs;
+
+    private void Start()
+    {
+        gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
+        movespeed *= Time.fixedDeltaTime;
+        jumpspeed *= Time.fixedDeltaTime;
+    }
 
     public void Initialize(int _id, string _username)
     {
         id = _id;
         username = _username;
 
-        inputs = new bool[4];
+        inputs = new bool[5];
     }
 
     private void FixedUpdate()
@@ -46,7 +58,19 @@ public class Player : MonoBehaviour
     {
         Vector3 movedirection = (transform.right * _inputdirection.x) + (transform.forward * _inputdirection.y);
 
-        transform.position += movedirection * movespeed;
+        movedirection *= movespeed;
+
+        if(charcontrol.isGrounded)
+        {
+            yvelocity = 0f;
+            if(inputs[4])
+            {
+                yvelocity = jumpspeed;
+            }
+        }
+        yvelocity += gravity;
+        movedirection.y = yvelocity;
+        charcontrol.Move(movedirection);
 
         //we are sending player position and rotation as seperate packet
         /*we are calculating player position in server based on client input

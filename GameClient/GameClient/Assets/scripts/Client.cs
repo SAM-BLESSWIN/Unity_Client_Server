@@ -4,13 +4,14 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using TMPro;
 
 public class Client : MonoBehaviour
 {
     public static Client instance;
     public static int databuffersize = 4096;
 
-    public string ipaddress="127.0.0.1";
+    public string ipaddress;
     public int port = 26950;
     public int myid = 0;
     public TCP tcp;
@@ -20,6 +21,9 @@ public class Client : MonoBehaviour
     private static Dictionary<int, PacketHandler> packethandler;
 
     private bool isconnected = false;
+
+    public TMP_InputField IPaddress;
+
 
     private void Awake()
     {
@@ -33,10 +37,15 @@ public class Client : MonoBehaviour
         }
     }
 
+    public void SetIP()
+    {
+        ipaddress = IPaddress.text;
+    }
+
     private void Start()
     {
         tcp = new TCP();
-        udp = new UDP();
+        udp = new UDP(); 
     }
 
     private void OnApplicationQuit()
@@ -46,11 +55,12 @@ public class Client : MonoBehaviour
 
     public void connecttoServer()
     {
-       // Debug.Log("called");
+        // Debug.Log("called");
         InitializeclientData();
         tcp.connect();
         isconnected = true;
     }
+
     #region TCP
     //TCP (Transmission Control Protocol) 
     //TCP is a connection oriented protocol.
@@ -285,8 +295,8 @@ public class Client : MonoBehaviour
             }
             catch(Exception ex)
             {
-                Debug.Log($"Error in UDP receivecallback: {ex}");
                 Disconnect();
+                Debug.Log($"Error in UDP receivecallback: {ex}");  
             }
         }
 
@@ -325,7 +335,8 @@ public class Client : MonoBehaviour
                 //{(int)ServerPackets.udptest,ClientHandle.UDPtest },
                 {(int)ServerPackets.spawnplayer,ClientHandle.SpawnHandle },
                 {(int)ServerPackets.playerposition,ClientHandle.Playerposition},
-                {(int)ServerPackets.playerrotation,ClientHandle.Playerrotation}
+                {(int)ServerPackets.playerrotation,ClientHandle.Playerrotation},
+                { (int)ServerPackets.playerdisconnected,ClientHandle.PlayerDisconnects}
         };
         Debug.Log("Data Initialized");
     }

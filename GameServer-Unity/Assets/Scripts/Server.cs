@@ -156,4 +156,10 @@ public class Server
             };
         Debug.Log("Initialized Packets");
     }
+
+    public static void Stop()
+    {
+        tcpListener.Stop();
+        udpListener.Close();
+    }
 }

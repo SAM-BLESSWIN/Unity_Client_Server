@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.W),
             Input.GetKey(KeyCode.A),
             Input.GetKey(KeyCode.S),
-            Input.GetKey(KeyCode.D)
+            Input.GetKey(KeyCode.D),
+            Input.GetKey(KeyCode.Space)
         };
 
         ClientSend.SendPlayerMovement(inputs);

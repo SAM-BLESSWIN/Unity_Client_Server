@@ -124,4 +124,13 @@ public class ServerSend : MonoBehaviour
             SendUDPdataexcept(_player.id, packet);
         };
     }
+
+    public static void PlayerDisconnects(int _playerid)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.playerdisconnected))
+        {
+            packet.Write(_playerid);
+            SendTCPdatatoall(packet);
+        }
+    }
 }

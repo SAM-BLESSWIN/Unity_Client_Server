@@ -229,10 +229,14 @@ public class Client
     public void Disconnect()
     {
         Debug.Log($"{tcp.Socket.Client.RemoteEndPoint} has diconnected");
-        player = null;
-        UnityEngine.Object.Destroy(player.gameObject);
+        ThreadManager.ExecuteOnMainThread(() =>
+        {
+            UnityEngine.Object.Destroy(player.gameObject);
+            player = null;
+        });
         tcp.Disconnect();
         udp.Disconnect();
+        ServerSend.PlayerDisconnects(Id);
     }
 }
 
