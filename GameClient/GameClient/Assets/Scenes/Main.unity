@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &171211552
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2081,10 +2081,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80ce243aa180c8c41a057bff8f1a2955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ipaddress: 127.0.0.1
+  ipaddress: 192.168.1.2
   port: 26950
   myid: 0
-  IPaddress: {fileID: 171211553}
 --- !u!4 &2009960604
 Transform:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int databuffersize = 4096;
 
-    public string ipaddress;
+    public string ipaddress="192.168.1.2";
     public int port = 26950;
     public int myid = 0;
     public TCP tcp;
@@ -22,7 +22,7 @@ public class Client : MonoBehaviour
 
     private bool isconnected = false;
 
-    public TMP_InputField IPaddress;
+    //public TMP_InputField IPaddress;
 
 
     private void Awake()
@@ -37,10 +37,10 @@ public class Client : MonoBehaviour
         }
     }
 
-    public void SetIP()
+   /* public void SetIP()
     {
         ipaddress = IPaddress.text;
-    }
+    }*/
 
     private void Start()
     {
